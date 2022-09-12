@@ -3,4 +3,10 @@ project(kfu_parallel_programming)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(kfu_parallel_programming main.cpp)
+include(FindOpenMP)
+
+if (OpenMP_FOUND)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+endif ()
+
+add_executable(kfu_parallel_programming openmp/01.cpp)
