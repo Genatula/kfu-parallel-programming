@@ -9,4 +9,4 @@ if (OpenMP_FOUND)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif ()
 
-add_executable(kfu_parallel_programming openmp/01.cpp)
+add_executable(kfu_parallel_programming main.cpp openmp/openmp.h openmp/openmp.cpp)
