@@ -53,4 +53,21 @@ void executeSecondOpenMpTask()
     }
 }
 
-
+void executeThirdOpenMpTask() {
+    int a = 1, b = 1;
+    printf("a = %d, b = %d \n", a, b);
+#pragma omp parallel private(a) firstprivate(b) num_threads(2)
+    {
+        a += omp_get_thread_num();
+        b += omp_get_thread_num();
+        printf("a = %d, b = %d from thread %d \n", a, b, omp_get_thread_num());
+    }
+    printf("a = %d, b = %d \n\n", a, b);
+#pragma omp parallel shared(a) private(b) num_threads(4)
+    {
+        a -= omp_get_thread_num();
+        b -= omp_get_thread_num();
+        printf("a = %d, b = %d from thread %d \n", a, b, omp_get_thread_num());
+    }
+    printf("a = %d, b = %d", a, b);
+}
