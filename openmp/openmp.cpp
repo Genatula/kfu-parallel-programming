@@ -23,12 +23,34 @@ void executeFirstOpenMpTask()
 }
 
 /*
- * Write a program with 2 parallel areas which execution depends on `#pragma omp parallel if(...)`
+ * Write a program with 2 parallel regions which execution depends on `#pragma omp parallel if(...)`
  * The condition is as follows : if the set number of threads is greater than 1, than the area is executed
  * Set the number of threads before the 1st area to 3, before the 2nd one - to 1
- * Inside the areas find out and print the number of threads and their identifiers
+ * Inside the regions find out and print the number of threads and their identifiers
  */
 
-void executeSecondOpenMpTask() {
-
+void executeSecondOpenMpTask()
+{
+    omp_set_num_threads(3);
+    printf("Executing the task with 3 threads: \n");
+    if (omp_get_max_threads() == 1) {
+        return;
+    }
+#pragma omp parallel if(omp_get_max_threads() > 1)
+    {
+        printf("Total amount of threads = %d \n", omp_get_max_threads());
+        printf("Thread id = %d \n", omp_get_thread_num());
+    }
+    omp_set_num_threads(1);
+    printf("Executing the task with 1 thread: \n");
+    if (omp_get_max_threads() == 1) {
+        return;
+    }
+#pragma omp parallel if(omp_get_max_threads() > 1)
+    {
+        printf("Total amount of threads = %d \n", omp_get_max_threads());
+        printf("Thread id = %d", omp_get_thread_num());
+    }
 }
+
+
