@@ -4,6 +4,7 @@
 #include <omp.h>
 #include <iterator>
 #include <limits>
+#include <random>
 
 using namespace std;
 
@@ -74,7 +75,7 @@ void executeThirdOpenMpTask() {
     printf("a = %d, b = %d", a, b);
 }
 
-void executeForthOpenMpTask() {
+void executeFourthOpenMpTask() {
     int a[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int b[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 #pragma omp parallel shared(a, b) num_threads(2)
@@ -88,6 +89,7 @@ void executeForthOpenMpTask() {
                 }
             }
             printf("The minimum value of the array a is %d \n", min);
+            printf("This section has been executed by thread %d \n\n", omp_get_thread_num());
         }
 #pragma omp single firstprivate(b) nowait
         {
@@ -98,6 +100,64 @@ void executeForthOpenMpTask() {
                 }
             }
             printf("The maximum value of the array b is %d \n", max);
+            printf("This section has been executed by thread %d \n\n", omp_get_thread_num());
+        }
+    }
+}
+
+void executeFifthOpenMpTask() {
+    int d[6][8]{};
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 8; j++) {
+            d[i][j] = rand();
+        }
+    }
+#pragma omp parallel shared(d)
+    {
+#pragma omp sections
+        {
+#pragma omp section
+            {
+                double mean = 0;
+                for (int i = 0; i < 6; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        mean += d[i][j];
+                    }
+                }
+                mean = mean / 48;
+                printf("The mean equals to %f \n", mean);
+                printf("This section has been executed by thread %d \n\n", omp_get_thread_num());
+            }
+#pragma omp section
+            {
+                int min = numeric_limits<int>::max();
+                int max = numeric_limits<int>::min();
+                for (int i = 0; i < 6; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (d[i][j] > max) {
+                            max = d[i][j];
+                        }
+                        if (d[i][j] < min) {
+                            min = d[i][j];
+                        }
+                    }
+                }
+                printf("The min = %d, the max = %d \n", min, max);
+                printf("This section has been executed by thread %d \n\n", omp_get_thread_num());
+            }
+#pragma omp section
+            {
+                int num = 0;
+                for (int i = 0; i < 6; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        if (d[i][j] % 3 == 0) {
+                            num += 1;
+                        }
+                    }
+                }
+                printf("There are %d numbers which give remainder of 0 when divided by 3 \n", num);
+                printf("This section has been executed by thread %d \n\n", omp_get_thread_num());
+            }
         }
     }
 }
