@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <omp.h>
+#include <iterator>
+#include <limits>
 
 using namespace std;
 
@@ -70,4 +72,32 @@ void executeThirdOpenMpTask() {
         printf("a = %d, b = %d from thread %d \n", a, b, omp_get_thread_num());
     }
     printf("a = %d, b = %d", a, b);
+}
+
+void executeForthOpenMpTask() {
+    int a[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int b[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+#pragma omp parallel shared(a, b) num_threads(2)
+    {
+#pragma omp single firstprivate(a) nowait
+        {
+            int min = numeric_limits<int>::max();
+            for (int i : a) {
+                if (i < min) {
+                    min = i;
+                }
+            }
+            printf("The minimum value of the array a is %d \n", min);
+        }
+#pragma omp single firstprivate(b) nowait
+        {
+            int max = numeric_limits<int>::min();
+            for (int i : b) {
+                if (i > max) {
+                    max = i;
+                }
+            }
+            printf("The maximum value of the array b is %d \n", max);
+        }
+    }
 }

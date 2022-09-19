@@ -24,6 +24,8 @@ int main()
                     executeSecondOpenMpTask();
                 case 3:
                     executeThirdOpenMpTask();
+                case 4:
+                    executeForthOpenMpTask();
             }
     }
 }

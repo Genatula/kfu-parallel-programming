@@ -3,4 +3,5 @@
 void executeFirstOpenMpTask();
 void executeSecondOpenMpTask();
 void executeThirdOpenMpTask();
+void executeForthOpenMpTask();
 #endif
