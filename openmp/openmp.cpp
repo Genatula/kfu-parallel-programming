@@ -56,6 +56,14 @@ void executeSecondOpenMpTask()
     }
 }
 
+/*
+ * Initialize two integers a and b. Define two parallel regions with 2 and 4 threads respectively.
+ * For the first region declare a and b protected as private and firstprivate respectively. In the region
+ * find out the thread number and add it to a and b. Print values of a and b before the region, in the region
+ * and after the region. For the second region declare a shared and b protected as private. Find out
+ * the thread number and subtract it from a and b. Print the same information.
+ * */
+
 void executeThirdOpenMpTask() {
     int a = 1, b = 1;
     printf("a = %d, b = %d \n", a, b);
@@ -74,6 +82,12 @@ void executeThirdOpenMpTask() {
     }
     printf("a = %d, b = %d", a, b);
 }
+
+/*
+ * Initialize two integer arrays a[10] and b[10]. Define a parallel region with 2 threads.
+ * Make master thread compute min(a), thread with id = 1 - max(b).
+ * Print the results.
+ * */
 
 void executeFourthOpenMpTask() {
     int a[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -104,6 +118,13 @@ void executeFourthOpenMpTask() {
         }
     }
 }
+
+/*
+ * Initialize two-dimensional integer array d[6][8] with random values.
+ * Using sections construct, define 3 sections: the first to compute the mean, the second to compute
+ * the min and max values, the third to find out how many numbers give remainder = 0 when divided by 3.
+ * In each section print the executing thread's id and the result.
+ * */
 
 void executeFifthOpenMpTask() {
     int d[6][8]{};
