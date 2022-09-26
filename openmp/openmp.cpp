@@ -192,11 +192,43 @@ void executeSixthOpenMpTask()
     int b[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
     int i, sum_a = 0, sum_b = 0;
 #pragma omp parallel for private(i) reduction(+:sum_a, sum_b)
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < 10; i++)
+        {
             sum_a += a[i];
             sum_b += b[i];
         }
     printf("The means are as follows: \n Mean of a = %f, mean of b = %f",
            static_cast<float>(sum_a / 10),
            static_cast<float>(sum_b / 10));
+}
+
+void executeSeventhOpenMpTask()
+{
+    int a[12], b[12], c[12], i;
+    omp_set_num_threads(3);
+    int chunk = 4;
+#pragma omp parallel for private(i) schedule(static, chunk)
+    for (i = 0; i < 12; i++)
+    {
+        a[i] = i * 2;
+        b[i] = i * 3;
+        printf("Total amount of threads = %d, current thread id = %d \n", omp_get_num_threads(), omp_get_thread_num());
+    }
+    for (i = 0; i < 12; i++)
+    {
+        printf("a[%d] = %d, b[%d] = %d \n", i, a[i], i, b[i]);
+    }
+
+    omp_set_num_threads(4);
+    chunk = 3;
+#pragma omp parallel for private(i) schedule(dynamic, chunk)
+    for (i = 0; i < 12; i++)
+    {
+        c[i] = a[i] + b[i];
+        printf("Total amount of threads = %d, current thread id = %d \n", omp_get_num_threads(), omp_get_thread_num());
+    }
+    for (i = 0; i < 12; i++)
+    {
+        printf("c[%d] = %d \n", i, c[i]);
+    }
 }
