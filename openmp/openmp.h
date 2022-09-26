@@ -5,4 +5,5 @@ void executeSecondOpenMpTask();
 void executeThirdOpenMpTask();
 void executeFourthOpenMpTask();
 void executeFifthOpenMpTask();
+void executeSixthOpenMpTask();
 #endif

@@ -64,7 +64,8 @@ void executeSecondOpenMpTask()
  * the thread number and subtract it from a and b. Print the same information.
  * */
 
-void executeThirdOpenMpTask() {
+void executeThirdOpenMpTask()
+{
     int a = 1, b = 1;
     printf("a = %d, b = %d \n", a, b);
 #pragma omp parallel private(a) firstprivate(b) num_threads(2)
@@ -89,7 +90,8 @@ void executeThirdOpenMpTask() {
  * Print the results.
  * */
 
-void executeFourthOpenMpTask() {
+void executeFourthOpenMpTask()
+{
     int a[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     int b[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 #pragma omp parallel shared(a, b) num_threads(2)
@@ -126,7 +128,8 @@ void executeFourthOpenMpTask() {
  * In each section print the executing thread's id and the result.
  * */
 
-void executeFifthOpenMpTask() {
+void executeFifthOpenMpTask()
+{
     int d[6][8]{};
     for (int i = 0; i < 6; i++) {
         for (int j = 0; j < 8; j++) {
@@ -181,4 +184,19 @@ void executeFifthOpenMpTask() {
             }
         }
     }
+}
+
+void executeSixthOpenMpTask()
+{
+    int a[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    int b[]{11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+    int i, sum_a = 0, sum_b = 0;
+#pragma omp parallel for private(i) reduction(+:sum_a, sum_b)
+        for (i = 0; i < 10; i++) {
+            sum_a += a[i];
+            sum_b += b[i];
+        }
+    printf("The means are as follows: \n Mean of a = %f, mean of b = %f",
+           static_cast<float>(sum_a / 10),
+           static_cast<float>(sum_b / 10));
 }

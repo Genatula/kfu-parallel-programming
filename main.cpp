@@ -28,6 +28,8 @@ int main()
                     executeFourthOpenMpTask();
                 case 5:
                     executeFifthOpenMpTask();
+                case 6:
+                    executeSixthOpenMpTask();
             }
     }
 }
