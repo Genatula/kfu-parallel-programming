@@ -280,3 +280,30 @@ void executeTenthOpenMpTask() {
     }
     printf("Amount of multiples of 9 = %d", num);
 }
+
+void executeEleventhOpenMpTask() {
+    int array_size = rand() % 100000;
+    int a[array_size];
+    for (int i = 0; i < array_size; i++) {
+        a[i] = rand();
+    }
+    int max = numeric_limits<int>::min();
+#pragma omp parallel num_threads(8)
+    {
+#pragma omp for
+        for (int i = 0; i < array_size; i++) {
+#pragma omp critical
+            {
+                if (a[i] % 7 == 0 && a[i] > max) {
+                    max = a[i];
+                }
+            }
+        }
+    }
+    if (max == numeric_limits<int>::min()) {
+        printf("There is no multiplies of 7 in the array \n");
+    }
+    else {
+        printf("The maximum multiply of 7 in the array is  %d", max);
+    }
+}

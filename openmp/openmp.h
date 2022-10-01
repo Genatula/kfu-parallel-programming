@@ -9,4 +9,5 @@ void executeSixthOpenMpTask();
 void executeSeventhOpenMpTask();
 void executeNinthOpenMpTask();
 void executeTenthOpenMpTask();
+void executeEleventhOpenMpTask();
 #endif

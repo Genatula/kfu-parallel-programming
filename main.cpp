@@ -36,6 +36,8 @@ int main()
                     executeNinthOpenMpTask();
                 case 10:
                     executeTenthOpenMpTask();
+                case 11:
+                    executeEleventhOpenMpTask();
             }
     }
 }
