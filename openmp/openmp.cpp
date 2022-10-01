@@ -232,3 +232,32 @@ void executeSeventhOpenMpTask()
         printf("c[%d] = %d \n", i, c[i]);
     }
 }
+
+void executeNinthOpenMpTask() {
+    int d[6][8];
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 8; j++) {
+            d[i][j] = rand();
+        }
+    }
+    int min = numeric_limits<int>::max(), max = numeric_limits<int>::min();
+#pragma omp parallel num_threads(8)
+    {
+#pragma omp parallel for
+        for (int i = 0; i < 6; i++) {
+#pragma omp parallel for
+            for (int j = 0; j < 8; j++) {
+#pragma omp critical
+                {
+                    if (d[i][j] < min) {
+                        min = d[i][j];
+                    }
+                    if (d[i][j] > max) {
+                        max = d[i][j];
+                    }
+                }
+            }
+        }
+    }
+    printf("The minimum of the array = %d, the maximum of the array = %d \n", min, max);
+}
