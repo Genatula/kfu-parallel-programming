@@ -261,3 +261,22 @@ void executeNinthOpenMpTask() {
     }
     printf("The minimum of the array = %d, the maximum of the array = %d \n", min, max);
 }
+
+void executeTenthOpenMpTask() {
+    int a[30];
+    for (int i = 0; i < 30; i++) {
+        a[i] = rand();
+    }
+    int num = 0;
+#pragma omp parallel num_threads(8)
+    {
+#pragma omp for
+        for (int i = 0; i < 30; i++) {
+            if (a[i] % 9 == 0) {
+#pragma omp atomic
+                num += 1;
+            }
+        }
+    }
+    printf("Amount of multiples of 9 = %d", num);
+}
