@@ -40,6 +40,8 @@ int main()
                     executeEleventhOpenMpTask();
                 case 13:
                     executeThirteenthOpenMpTask();
+                case 14:
+                    executeFourteenthOpenMpTask();
             }
     }
 }

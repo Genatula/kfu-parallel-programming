@@ -309,7 +309,6 @@ void executeEleventhOpenMpTask() {
 }
 
 void executeThirteenthOpenMpTask() {
-    omp_set_dynamic(0);
     int a[30] = {1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1};
     int result = 0;
 #pragma omp parallel num_threads(8)
@@ -322,4 +321,16 @@ void executeThirteenthOpenMpTask() {
         }
     }
     printf("The number in base 10 looks like %d \n", result);
+}
+
+void executeFourteenthOpenMpTask() {
+    int result = 0;
+#pragma omp parallel num_threads(8)
+    {
+#pragma omp parallel for reduction(+:result)
+        for (int i = 0; i < 210; i++) {
+            result = result + 2 * i + 1;
+        }
+    }
+    printf("Square of 210 equals to %d \n", result);
 }
