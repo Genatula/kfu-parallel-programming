@@ -38,6 +38,8 @@ int main()
                     executeTenthOpenMpTask();
                 case 11:
                     executeEleventhOpenMpTask();
+                case 12:
+                    executeTwelfthOpenMpTask();
             }
     }
 }

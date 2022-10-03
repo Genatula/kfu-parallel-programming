@@ -307,3 +307,19 @@ void executeEleventhOpenMpTask() {
         printf("The maximum multiply of 7 in the array is  %d", max);
     }
 }
+
+void executeTwelfthOpenMpTask() {
+    omp_set_dynamic(0);
+    int a[30] = {1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1};
+    int result = 0;
+#pragma omp parallel num_threads(8)
+    {
+#pragma omp parallel for reduction(+:result)
+        for (int i = 0; i < 30; i++) {
+            if (a[i] == 1) {
+                result = result + pow(2, 30 - i - 1);
+            }
+        }
+    }
+    printf("The number in base 10 looks like %d \n", result);
+}
