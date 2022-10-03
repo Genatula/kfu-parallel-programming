@@ -10,5 +10,5 @@ void executeSeventhOpenMpTask();
 void executeNinthOpenMpTask();
 void executeTenthOpenMpTask();
 void executeEleventhOpenMpTask();
-void executeTwelfthOpenMpTask();
+void executeThirteenthOpenMpTask();
 #endif

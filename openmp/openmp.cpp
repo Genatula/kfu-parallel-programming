@@ -308,7 +308,7 @@ void executeEleventhOpenMpTask() {
     }
 }
 
-void executeTwelfthOpenMpTask() {
+void executeThirteenthOpenMpTask() {
     omp_set_dynamic(0);
     int a[30] = {1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 1};
     int result = 0;
